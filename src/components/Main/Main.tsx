@@ -1,5 +1,11 @@
+import { FlexColumn } from "../styled";
+
 const Main: React.FC<any> = () => {
-  return <>Main</>;
+  return (
+    <FlexColumn height={"100vh"}>
+      <span>Main</span>
+    </FlexColumn>
+  );
 };
 
 export default Main;
