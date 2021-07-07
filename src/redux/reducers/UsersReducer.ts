@@ -19,6 +19,7 @@ export const getUsersReducer = (
       action.payload.forEach((doc) => {
         let data = doc.data();
         copy.push({
+          id: doc.id,
           ...data,
         });
       });
