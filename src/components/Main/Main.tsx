@@ -2,9 +2,11 @@
 import { useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
 import AuthModule from "../Authentication/AuthModule";
-import { MainWrapper, UserInfoWrapper } from "./styled";
+import { FakeSpace, LogoutIcon, MainWrapper, UserInfoWrapper } from "./styled";
 import React, { useState, useEffect } from "react";
 import { User } from "../../redux/interfaces/interfaces";
+import { FlexColumn, IconButton } from "../styled";
+import fire from "../../Firebase";
 
 const Main: React.FC<any> = () => {
   const [authorized, setAuthorized] = useState<boolean>(false);
@@ -39,17 +41,34 @@ const Main: React.FC<any> = () => {
     }
   }, [allUsers, authorized]);
 
+  const handleLogout = (): void => {
+    fire
+      .auth()
+      .signOut()
+      .then(() => {})
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return (
     <MainWrapper height={"100vh"}>
-      <AuthModule />
       {authorized && currentUser ? (
-        <UserInfoWrapper>
-          <span>{`Hello ${currentUser?.username}!`}</span>
-          <span>{`Welcome to Vocable.`}</span>
-          <span>{`With my help you have already learned ${currentUser?.vocabulary.length} words.`}</span>
-          <span>{`Ready to learn some more?`}</span>
+        <UserInfoWrapper justifyContent={"space-between"} height={"100vh"}>
+          <FakeSpace />
+          <FlexColumn>
+            <span>{`Hello ${currentUser?.username}!`}</span>
+            <span>{`Welcome to Vocable.`}</span>
+            <span>{`With my help you have already learned ${currentUser?.vocabulary.length} words.`}</span>
+            <span>{`Ready to learn some more?`}</span>
+          </FlexColumn>
+          <IconButton onClick={handleLogout}>
+            <LogoutIcon />
+          </IconButton>
         </UserInfoWrapper>
-      ) : null}
+      ) : (
+        <AuthModule />
+      )}
     </MainWrapper>
   );
 };

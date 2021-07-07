@@ -50,3 +50,14 @@ export const Input = styled.input`
 export const SectionName = styled.span`
   margin-bottom: 10px;
 `;
+
+export const IconButton = styled.button`
+  border: none;
+  background: transparent;
+  display: flex;
+`;
+
+export const Icon = styled.span`
+  background-repeat: no-repeat;
+  background-position: center;
+`;
