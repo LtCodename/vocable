@@ -25,3 +25,24 @@ export const FlexColumn = styled.div<{
   align-items: ${(props) => (props.alingItems ? props.alingItems : "center")};
   height: ${(props) => (props.height ? props.height : "auto")};
 `;
+
+export const Button = styled.button`
+  outline: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border: 1px solid #000000;
+  background: #ffffff;
+  color: #000000;
+  transition: all 0.3s;
+
+  &:hover {
+    background: #000000;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+  }
+`;
+
+export const Input = styled.input`
+  outline: none;
+  padding: 5px 10px;
+`;
