@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import fire from "../../Firebase";
-import { FlexColumn, IconButton } from "../styled";
-import { AuthInput, LoginIcon } from "./styled";
+import { FlexColumn, FlexRow, IconButton } from "../styled";
+import { AuthInput, DemoIcon, LoginIcon } from "./styled";
 import { useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
 
@@ -23,16 +23,23 @@ const AuthModule: React.FC<any> = () => {
   }, [authData]);
 
   const handleAuth = (): void => {
-    if (authorized) {
-    } else {
-      fire
-        .auth()
-        .signInWithEmailAndPassword(emailInputValue, passwordInputValue)
-        .then(() => {})
-        .catch((error) => {
-          console.log(error.message);
-        });
-    }
+    fire
+      .auth()
+      .signInWithEmailAndPassword(emailInputValue, passwordInputValue)
+      .then(() => {})
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  const handleDemo = (): void => {
+    fire
+      .auth()
+      .signInWithEmailAndPassword("chernenko.eu@gmail.com", "qwerty1")
+      .then(() => {})
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,9 +74,14 @@ const AuthModule: React.FC<any> = () => {
           />
         </>
       )}
-      <IconButton onClick={handleAuth}>
-        <LoginIcon />
-      </IconButton>
+      <FlexRow>
+        <IconButton onClick={handleAuth}>
+          <LoginIcon />
+        </IconButton>
+        <IconButton onClick={handleDemo}>
+          <DemoIcon />
+        </IconButton>
+      </FlexRow>
     </FlexColumn>
   );
 };
