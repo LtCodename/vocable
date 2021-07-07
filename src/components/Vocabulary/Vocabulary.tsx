@@ -1,8 +1,44 @@
-import React from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import { AppState } from "../../redux/store";
 import { BackIcon, ContentBackground, IconButton } from "../styled";
+import { useSelector } from "react-redux";
+import { User } from "../../redux/interfaces/interfaces";
 
 const Vocabulary: React.FC<any> = ({ history }) => {
+  const [authorized, setAuthorized] = useState<boolean>(false);
+  const [allUsers, setAllUsers] = useState<User[]>([]);
+  const [currentUser, setCurrentUser] = useState<User>();
+
+  const authData = useSelector((state: AppState) => state.authData);
+  const users = useSelector((state: AppState) => state.users);
+
+  useEffect(() => {
+    if (users.users.length) {
+      setAllUsers(users.users);
+    }
+  }, [users]);
+
+  useEffect(() => {
+    if (authData.authData) {
+      if (authData.authData.uid.length) {
+        setAuthorized(true);
+      } else {
+        history.push("/main");
+      }
+    }
+  }, [authData]);
+
+  useEffect(() => {
+    if (allUsers.length && authorized) {
+      const foundUser = allUsers.find(
+        (user: User) => user.uid === authData.authData.uid
+      );
+      setCurrentUser(foundUser);
+    }
+  }, [allUsers, authorized]);
+
   const handleLink = (page: string): void => {
     history.push(page);
   };
