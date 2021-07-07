@@ -4,41 +4,23 @@ import Main from "./components/Main/Main";
 import { useDispatch, useSelector } from "react-redux";
 import { getUsers } from "./redux/effects/Users";
 import { AppState } from "./redux/store";
-import fire from "./Firebase";
+import { getAuth } from "./redux/effects/Auth";
 
 const App: React.FC<any> = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUsers());
+    dispatch(getAuth());
   }, [dispatch]);
 
   const users = useSelector((state: AppState) => state.users);
 
   useEffect(() => {
     if (users.users.length) {
-      console.log(users.users);
+      // console.log(users.users);
     }
   }, [users]);
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
-
-  const fetchUser = (): void => {
-    console.log("fetchUser");
-    fire.auth().onAuthStateChanged((user) => {
-      console.log("onAuthStateChanged");
-      console.log(user);
-      if (user !== null) {
-        user.getIdTokenResult().then((idTokenResult) => {
-          console.log("User data:");
-          console.log(user);
-        });
-      } else {
-      }
-    });
-  };
 
   return (
     <BrowserRouter>

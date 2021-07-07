@@ -7,3 +7,7 @@ export interface User {
   vocabulary: any;
   data: Function;
 }
+
+export interface AuthData {
+  uid: string;
+}
