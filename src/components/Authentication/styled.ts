@@ -1,9 +1,13 @@
 import styled from "styled-components";
-import { Button } from "../styled";
+import { Icon } from "../styled";
 import { Input } from "../styled";
-
-export const AuthButton = styled(Button)``;
 
 export const AuthInput = styled(Input)`
   margin-bottom: 10px;
+`;
+
+export const LoginIcon = styled(Icon)`
+  background-image: url("/icons/login.svg");
+  width: 50px;
+  height: 50px;
 `;

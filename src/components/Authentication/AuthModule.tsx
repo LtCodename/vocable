@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import fire from "../../Firebase";
-import { FlexColumn, SectionName } from "../styled";
-import { AuthButton, AuthInput } from "./styled";
+import { FlexColumn, IconButton } from "../styled";
+import { AuthInput, LoginIcon } from "./styled";
 import { useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
 
@@ -24,13 +24,6 @@ const AuthModule: React.FC<any> = () => {
 
   const handleAuth = (): void => {
     if (authorized) {
-      fire
-        .auth()
-        .signOut()
-        .then(() => {})
-        .catch((error) => {
-          console.log(error.message);
-        });
     } else {
       fire
         .auth()
@@ -57,7 +50,6 @@ const AuthModule: React.FC<any> = () => {
 
   return (
     <FlexColumn>
-      <SectionName>Authentication</SectionName>
       {authorized ? null : (
         <>
           <AuthInput
@@ -75,9 +67,9 @@ const AuthModule: React.FC<any> = () => {
           />
         </>
       )}
-      <AuthButton onClick={handleAuth}>
-        {authorized ? "Logout" : "Login"}
-      </AuthButton>
+      <IconButton onClick={handleAuth}>
+        <LoginIcon />
+      </IconButton>
     </FlexColumn>
   );
 };

@@ -47,10 +47,6 @@ export const Input = styled.input`
   padding: 5px 10px;
 `;
 
-export const SectionName = styled.span`
-  margin-bottom: 10px;
-`;
-
 export const IconButton = styled.button`
   border: none;
   background: transparent;
