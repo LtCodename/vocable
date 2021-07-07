@@ -57,7 +57,7 @@ const AuthModule: React.FC<any> = () => {
 
   return (
     <FlexColumn>
-      <SectionName>AuthModule</SectionName>
+      <SectionName>Authentication</SectionName>
       {authorized ? null : (
         <>
           <AuthInput
