@@ -57,3 +57,15 @@ export const Icon = styled.span`
   background-repeat: no-repeat;
   background-position: center;
 `;
+
+export const BackIcon = styled(Icon)`
+  background-image: url("/icons/back.svg");
+  width: 50px;
+  height: 50px;
+  margin-top: 10px;
+`;
+
+export const ContentBackground = styled(FlexColumn)`
+  background: #e8f6ef;
+  padding: 10px;
+`;

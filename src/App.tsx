@@ -4,6 +4,8 @@ import Main from "./components/Main/Main";
 import { useDispatch } from "react-redux";
 import { getUsers } from "./redux/effects/Users";
 import { getAuth } from "./redux/effects/Auth";
+import Learn from "./components/Learn/Learn";
+import Vocabulary from "./components/Vocabulary/Vocabulary";
 
 const App: React.FC<any> = () => {
   const dispatch = useDispatch();
@@ -17,6 +19,8 @@ const App: React.FC<any> = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/main" component={Main} />
+        <Route path="/learn" component={Learn} />
+        <Route path="/vocabulary" component={Vocabulary} />
         <Redirect to="/main" />
       </Switch>
     </BrowserRouter>

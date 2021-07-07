@@ -1,11 +1,6 @@
 import styled from "styled-components";
 import { FlexColumn, Icon } from "../styled";
 
-export const MainWrapper = styled(FlexColumn)`
-  background: #e8f6ef;
-  padding: 10px;
-`;
-
 export const UserInfoWrapper = styled(FlexColumn)``;
 
 export const LogoutIcon = styled(Icon)`
@@ -17,4 +12,18 @@ export const LogoutIcon = styled(Icon)`
 export const FakeSpace = styled.span`
   width: 50px;
   height: 50px;
+`;
+
+export const LearnIcon = styled(Icon)`
+  background-image: url("/icons/learn.svg");
+  width: 50px;
+  height: 50px;
+  margin-top: 10px;
+`;
+
+export const VocabularyIcon = styled(Icon)`
+  background-image: url("/icons/vocabulary.svg");
+  width: 50px;
+  height: 50px;
+  margin-top: 10px;
 `;

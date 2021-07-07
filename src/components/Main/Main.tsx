@@ -2,13 +2,20 @@
 import { useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
 import AuthModule from "../Authentication/AuthModule";
-import { FakeSpace, LogoutIcon, MainWrapper, UserInfoWrapper } from "./styled";
+import { withRouter } from "react-router-dom";
+import {
+  FakeSpace,
+  LearnIcon,
+  LogoutIcon,
+  UserInfoWrapper,
+  VocabularyIcon,
+} from "./styled";
 import React, { useState, useEffect } from "react";
 import { User } from "../../redux/interfaces/interfaces";
-import { FlexColumn, IconButton } from "../styled";
+import { ContentBackground, FlexColumn, FlexRow, IconButton } from "../styled";
 import fire from "../../Firebase";
 
-const Main: React.FC<any> = () => {
+const Main: React.FC<any> = ({ history }) => {
   const [authorized, setAuthorized] = useState<boolean>(false);
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [currentUser, setCurrentUser] = useState<User>();
@@ -51,16 +58,30 @@ const Main: React.FC<any> = () => {
       });
   };
 
+  const handleLink = (page: string): void => {
+    history.push(page);
+  };
+
   return (
-    <MainWrapper height={"100vh"}>
+    <ContentBackground height={"100vh"}>
       {authorized && currentUser ? (
         <UserInfoWrapper justifyContent={"space-between"} height={"100vh"}>
           <FakeSpace />
           <FlexColumn>
-            <span>{`Hello ${currentUser?.username}!`}</span>
-            <span>{`Welcome to Vocable.`}</span>
-            <span>{`With my help you have already learned ${currentUser?.vocabulary.length} words.`}</span>
-            <span>{`Ready to learn some more?`}</span>
+            <FlexColumn>
+              <span>{`Hello ${currentUser?.username}!`}</span>
+              <span>{`Welcome to Vocable.`}</span>
+              <span>{`With my help you have already learned ${currentUser?.vocabulary.length} words.`}</span>
+              <span>{`Ready to learn some more?`}</span>
+            </FlexColumn>
+            <FlexRow>
+              <IconButton onClick={() => handleLink("/learn")}>
+                <LearnIcon />
+              </IconButton>
+              <IconButton onClick={() => handleLink("/vocabulary")}>
+                <VocabularyIcon />
+              </IconButton>
+            </FlexRow>
           </FlexColumn>
           <IconButton onClick={handleLogout}>
             <LogoutIcon />
@@ -69,8 +90,8 @@ const Main: React.FC<any> = () => {
       ) : (
         <AuthModule />
       )}
-    </MainWrapper>
+    </ContentBackground>
   );
 };
 
-export default Main;
+export default withRouter(Main);
