@@ -6,7 +6,20 @@ import fire from "./Firebase";
 const App: React.FC<any> = () => {
   useEffect(() => {
     fetchData();
+    fetchUser();
   }, []);
+
+  const fetchUser = (): void => {
+    fire.auth().onAuthStateChanged((user) => {
+      if (user !== null) {
+        user.getIdTokenResult().then((idTokenResult) => {
+          console.log("User data:");
+          console.log(user);
+        });
+      } else {
+      }
+    });
+  };
 
   const fetchData = (): void => {
     fire
