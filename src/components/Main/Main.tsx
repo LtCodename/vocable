@@ -1,10 +1,10 @@
 import AuthModule from "../Authentication/AuthModule";
-import { FlexColumn } from "../styled";
+import { FlexColumn, SectionName } from "../styled";
 
 const Main: React.FC<any> = () => {
   return (
     <FlexColumn height={"100vh"}>
-      <span>Main Page</span>
+      <SectionName>Main Page</SectionName>
       <AuthModule />
     </FlexColumn>
   );

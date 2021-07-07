@@ -46,3 +46,7 @@ export const Input = styled.input`
   outline: none;
   padding: 5px 10px;
 `;
+
+export const SectionName = styled.span`
+  margin-bottom: 10px;
+`;

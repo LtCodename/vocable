@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import fire from "../../Firebase";
-import { FlexColumn } from "../styled";
+import { FlexColumn, SectionName } from "../styled";
 import { AuthButton, AuthInput } from "./styled";
 import { useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
@@ -57,7 +57,7 @@ const AuthModule: React.FC<any> = () => {
 
   return (
     <FlexColumn>
-      <span>AuthModule</span>
+      <SectionName>AuthModule</SectionName>
       {authorized ? null : (
         <>
           <AuthInput
