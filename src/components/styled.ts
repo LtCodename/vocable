@@ -45,6 +45,9 @@ export const Button = styled.button`
 export const Input = styled.input`
   outline: none;
   padding: 5px 10px;
+  border: none;
+  background: #ffe194;
+  color: #4c4c6d;
 `;
 
 export const IconButton = styled.button`

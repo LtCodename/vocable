@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { User, Word } from "../../redux/interfaces/interfaces";
 import { WordsTable, Tabs, Tab, TabName } from "./styled";
 import WordItem from "./WordItem";
+import fire from "../../Firebase";
 
 const Vocabulary: React.FC<any> = ({ history }) => {
   const [authorized, setAuthorized] = useState<boolean>(false);
@@ -50,14 +51,50 @@ const Vocabulary: React.FC<any> = ({ history }) => {
     setActiveTab(tabName);
   };
 
-  const allWords = currentUser?.vocabulary.map((word: Word) => {
-    return <WordItem word={word} key={word.id} />;
-  });
+  const saveNextWord = (nextWord: Word): void => {
+    const userVocabulary: Word[] = [
+      ...currentUser?.vocabulary.filter(
+        (word: Word) => word.id !== nextWord.id
+      ),
+    ];
+
+    userVocabulary.push(nextWord);
+
+    fire
+      .firestore()
+      .collection("users")
+      .doc(currentUser?.id)
+      .update({
+        vocabulary: userVocabulary,
+      })
+      .then(() => {})
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  const allWords = currentUser?.vocabulary
+    .filter((word: Word) => !word.new)
+    .map((word: Word) => {
+      return (
+        <WordItem
+          word={word}
+          key={word.id}
+          save={(nextWord: Word) => saveNextWord(nextWord)}
+        />
+      );
+    });
 
   const newWords = currentUser?.vocabulary
     .filter((word: Word) => word.new)
     .map((word: Word) => {
-      return <WordItem word={word} key={word.id} />;
+      return (
+        <WordItem
+          word={word}
+          key={word.id}
+          save={(nextWord: Word) => saveNextWord(nextWord)}
+        />
+      );
     });
 
   return (

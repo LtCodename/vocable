@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { FlexColumn, FlexRow } from "../styled";
+import { FlexColumn, FlexRow, Icon, Input } from "../styled";
 
 export const WordsTable = styled(FlexColumn)`
   width: 100%;
@@ -68,4 +68,41 @@ export const WordEditModalWrapper = styled.div<{ show?: boolean }>`
   display: ${(props) => (props.show ? "flex" : "none")};
   z-index: 999;
   align-items: center;
+`;
+
+export const EditInput = styled(Input)`
+  margin-bottom: 10px;
+  width: 100%;
+  font-size: 15px;
+`;
+
+export const EditPropsWrapper = styled(FlexColumn)`
+  margin-top: 10px;
+  width: 100%;
+`;
+
+export const EditLabel = styled.span`
+  font-weight: 500;
+  margin-bottom: 10px;
+  color: #4c4c6d;
+`;
+
+export const EditPropItem = styled(FlexColumn)`
+  width: 100%;
+`;
+
+export const EditSelect = styled.select`
+  border: none;
+  width: 100%;
+  background: #ffe194;
+  padding: 5px 10px 5px 5px;
+  color: #4c4c6d;
+  outline: none;
+`;
+
+export const SaveIcon = styled(Icon)`
+  background-image: url("/icons/save.svg");
+  width: 50px;
+  height: 50px;
+  margin-top: 10px;
 `;

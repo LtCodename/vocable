@@ -5,9 +5,10 @@ import WordEditModal from "./WordEditModal";
 
 interface Props {
   word: Word;
+  save: Function;
 }
 
-const WordItem: React.FC<any> = ({ word }: Props) => {
+const WordItem: React.FC<any> = ({ word, save }: Props) => {
   const [displayType, setDisplayType] = useState<string>("name");
   const [clickCounter, setClickCounter] = useState<number>(0);
   const [showEditWindow, setShowEditWindow] = useState<boolean>(false);
@@ -56,6 +57,10 @@ const WordItem: React.FC<any> = ({ word }: Props) => {
     setShowEditWindow(false);
   };
 
+  const saveNextWord = (nextWord: Word): void => {
+    save(nextWord);
+  };
+
   return (
     <>
       <WordsRow onClick={() => handleClick()}>
@@ -83,7 +88,12 @@ const WordItem: React.FC<any> = ({ word }: Props) => {
         </WordCell>
       </WordsRow>
       {showEditWindow ? (
-        <WordEditModal show={showEditWindow} word={word} back={back} />
+        <WordEditModal
+          show={showEditWindow}
+          word={word}
+          back={back}
+          save={(nextWord: Word) => saveNextWord(nextWord)}
+        />
       ) : null}
     </>
   );
