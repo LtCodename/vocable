@@ -8,6 +8,8 @@ import { User, Word } from "../../redux/interfaces/interfaces";
 import { WordsTable, Tabs, Tab, TabName } from "./styled";
 import WordItem from "./WordItem";
 import fire from "../../Firebase";
+import { useDispatch } from "react-redux";
+import { getUsers } from "../../redux/effects/Users";
 
 const Vocabulary: React.FC<any> = ({ history }) => {
   const [authorized, setAuthorized] = useState<boolean>(false);
@@ -17,6 +19,8 @@ const Vocabulary: React.FC<any> = ({ history }) => {
 
   const authData = useSelector((state: AppState) => state.authData);
   const users = useSelector((state: AppState) => state.users);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (users.users.length) {
@@ -67,7 +71,9 @@ const Vocabulary: React.FC<any> = ({ history }) => {
       .update({
         vocabulary: userVocabulary,
       })
-      .then(() => {})
+      .then(() => {
+        dispatch(getUsers());
+      })
       .catch((error) => {
         console.log(error.message);
       });
