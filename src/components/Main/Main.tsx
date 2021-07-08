@@ -12,7 +12,7 @@ import {
   MainPageMessage,
 } from "./styled";
 import React, { useState, useEffect } from "react";
-import { User } from "../../redux/interfaces/interfaces";
+import { User, Word } from "../../redux/interfaces/interfaces";
 import { ContentBackground, FlexColumn, FlexRow, IconButton } from "../styled";
 import fire from "../../Firebase";
 
@@ -63,6 +63,13 @@ const Main: React.FC<any> = ({ history }) => {
     history.push(page);
   };
 
+  const calculateDone = (): number => {
+    const filtered: Word[] = currentUser?.vocabulary.filter(
+      (word: Word) => !word.new
+    );
+    return filtered.length;
+  };
+
   return (
     <ContentBackground height={"100vh"}>
       {authorized && currentUser ? (
@@ -72,7 +79,7 @@ const Main: React.FC<any> = ({ history }) => {
             <FlexColumn>
               <MainPageMessage>{`Hello ${currentUser?.username}!`}</MainPageMessage>
               <MainPageMessage>{`Welcome to Vocable.`}</MainPageMessage>
-              <MainPageMessage>{`With my help you have already learned ${currentUser?.vocabulary.length} words.`}</MainPageMessage>
+              <MainPageMessage>{`With my help you have already learned ${calculateDone()} words.`}</MainPageMessage>
               <MainPageMessage>{`Ready to learn some more?`}</MainPageMessage>
             </FlexColumn>
             <FlexRow>
