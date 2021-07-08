@@ -30,4 +30,5 @@ export const VocabularyIcon = styled(Icon)`
 
 export const MainPageMessage = styled.span`
   text-align: center;
+  color: #4c4c6d;
 `;

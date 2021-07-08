@@ -65,7 +65,6 @@ export const BackIcon = styled(Icon)`
   background-image: url("/icons/back.svg");
   width: 50px;
   height: 50px;
-  margin-top: 10px;
 `;
 
 export const ContentBackground = styled(FlexColumn)`

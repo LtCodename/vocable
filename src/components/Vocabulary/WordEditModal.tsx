@@ -12,27 +12,29 @@ import {
 } from "./styled";
 
 interface Props {
-  word: Word;
+  word?: Word;
   show: boolean;
   back: Function;
   save: Function;
 }
 
 const WordEditModal: React.FC<any> = ({ word, show, back, save }: Props) => {
-  const [nameInputValue, setNameInputValue] = useState<string>(word.name);
+  const [nameInputValue, setNameInputValue] = useState<string>(
+    word ? word.name : ""
+  );
   const [newSelectValue, setNewSelectValue] = useState<string>(
-    word.new ? "y" : "n"
+    word ? (word.new ? "y" : "n") : "y"
   );
   const [typeSelectValue, setTypeSelectValue] = useState<string>(
-    word.type.toString()
+    word ? word.type.toString() : "0"
   );
   const [translationInputValue, setTranslationInputValue] = useState<string>(
-    word.translation
+    word ? word.translation : ""
   );
   const [transcriptionInputValue, setTranscriptionInputValuee] =
-    useState<string>(word.transcription);
+    useState<string>(word ? word.transcription : "");
   const [successInputValue, setSuccessInputValue] = useState<string>(
-    word.success.toString()
+    word ? word.success.toString() : "0"
   );
 
   const handleBack = (): void => {
@@ -41,9 +43,9 @@ const WordEditModal: React.FC<any> = ({ word, show, back, save }: Props) => {
 
   const handleSave = (): void => {
     const nextWord: Word = {
-      id: word.id,
-      success: parseInt(successInputValue),
-      new: newSelectValue === "y" ? true : false,
+      id: word ? word.id : Date.now().toString(),
+      success: word ? parseInt(successInputValue) : 0,
+      new: word ? (newSelectValue === "y" ? true : false) : true,
       name: nameInputValue,
       transcription: transcriptionInputValue,
       translation: translationInputValue,
@@ -134,25 +136,29 @@ const WordEditModal: React.FC<any> = ({ word, show, back, save }: Props) => {
             id={"translation"}
           />
         </EditPropItem>
-        <EditPropItem>
-          <EditLabel>Succesful Strikes</EditLabel>
-          <EditInput
-            value={successInputValue}
-            placeholder={"Succesful Strikes"}
-            onChange={handleInputChange}
-            id={"succesful"}
-          />
-        </EditPropItem>
-        <EditPropItem>
-          <EditLabel>New</EditLabel>
-          <EditSelect
-            value={newSelectValue}
-            onChange={handleSelectChange}
-            id={"new"}
-          >
-            {newOptions}
-          </EditSelect>
-        </EditPropItem>
+        {word ? (
+          <EditPropItem>
+            <EditLabel>Succesful Strikes</EditLabel>
+            <EditInput
+              value={successInputValue}
+              placeholder={"Succesful Strikes"}
+              onChange={handleInputChange}
+              id={"succesful"}
+            />
+          </EditPropItem>
+        ) : null}
+        {word ? (
+          <EditPropItem>
+            <EditLabel>New</EditLabel>
+            <EditSelect
+              value={newSelectValue}
+              onChange={handleSelectChange}
+              id={"new"}
+            >
+              {newOptions}
+            </EditSelect>
+          </EditPropItem>
+        ) : null}
         <EditPropItem>
           <EditLabel>Type Of Speech</EditLabel>
           <EditSelect

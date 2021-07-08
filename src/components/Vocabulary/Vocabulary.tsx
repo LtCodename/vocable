@@ -5,17 +5,26 @@ import { AppState } from "../../redux/store";
 import { BackIcon, ContentBackground, IconButton } from "../styled";
 import { useSelector } from "react-redux";
 import { User, Word } from "../../redux/interfaces/interfaces";
-import { WordsTable, Tabs, Tab, TabName } from "./styled";
+import {
+  WordsTable,
+  Tabs,
+  Tab,
+  TabName,
+  VocabularyHeader,
+  AddIcon,
+} from "./styled";
 import WordItem from "./WordItem";
 import fire from "../../Firebase";
 import { useDispatch } from "react-redux";
 import { getUsers } from "../../redux/effects/Users";
+import WordEditModal from "./WordEditModal";
 
 const Vocabulary: React.FC<any> = ({ history }) => {
   const [authorized, setAuthorized] = useState<boolean>(false);
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [currentUser, setCurrentUser] = useState<User>();
   const [activeTab, setActiveTab] = useState<string>("new");
+  const [showAddWindow, setShowAddWindow] = useState<boolean>(false);
 
   const authData = useSelector((state: AppState) => state.authData);
   const users = useSelector((state: AppState) => state.users);
@@ -79,8 +88,48 @@ const Vocabulary: React.FC<any> = ({ history }) => {
       });
   };
 
+  const addNewWord = (newWord: Word): void => {
+    const userVocabulary: Word[] = [...currentUser?.vocabulary];
+
+    userVocabulary.push(newWord);
+
+    fire
+      .firestore()
+      .collection("users")
+      .doc(currentUser?.id)
+      .update({
+        vocabulary: userVocabulary,
+      })
+      .then(() => {
+        dispatch(getUsers());
+        setShowAddWindow(false);
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
+  const back = (): void => {
+    setShowAddWindow(false);
+  };
+
+  const sortFunction = (a: Word, b: Word): number => {
+    if (a.name < b.name) {
+      return -1;
+    }
+    if (a.name > b.name) {
+      return 1;
+    }
+    return 0;
+  };
+
+  const handleAdd = (): void => {
+    setShowAddWindow(true);
+  };
+
   const allWords = currentUser?.vocabulary
     .filter((word: Word) => !word.new)
+    .sort(sortFunction)
     .map((word: Word) => {
       return (
         <WordItem
@@ -93,6 +142,7 @@ const Vocabulary: React.FC<any> = ({ history }) => {
 
   const newWords = currentUser?.vocabulary
     .filter((word: Word) => word.new)
+    .sort(sortFunction)
     .map((word: Word) => {
       return (
         <WordItem
@@ -105,9 +155,14 @@ const Vocabulary: React.FC<any> = ({ history }) => {
 
   return (
     <ContentBackground height={"100vh"} justifyContent={"flex-start"}>
-      <IconButton onClick={() => handleLink("/main")}>
-        <BackIcon />
-      </IconButton>
+      <VocabularyHeader>
+        <IconButton onClick={() => handleLink("/main")}>
+          <BackIcon />
+        </IconButton>
+        <IconButton onClick={handleAdd}>
+          <AddIcon />
+        </IconButton>
+      </VocabularyHeader>
       <Tabs>
         <Tab onClick={() => handleTab("new")} active={activeTab === "new"}>
           <TabName>Learning</TabName>
@@ -117,6 +172,13 @@ const Vocabulary: React.FC<any> = ({ history }) => {
         </Tab>
       </Tabs>
       <WordsTable>{activeTab === "new" ? newWords : allWords}</WordsTable>
+      {showAddWindow ? (
+        <WordEditModal
+          show={showAddWindow}
+          back={back}
+          save={(newWord: Word) => addNewWord(newWord)}
+        />
+      ) : null}
     </ContentBackground>
   );
 };

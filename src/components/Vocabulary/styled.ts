@@ -98,6 +98,7 @@ export const EditSelect = styled.select`
   padding: 5px 10px 5px 5px;
   color: #4c4c6d;
   outline: none;
+  margin-bottom: 10px;
 `;
 
 export const SaveIcon = styled(Icon)`
@@ -105,4 +106,12 @@ export const SaveIcon = styled(Icon)`
   width: 50px;
   height: 50px;
   margin-top: 10px;
+`;
+
+export const VocabularyHeader = styled(FlexRow)``;
+
+export const AddIcon = styled(Icon)`
+  background-image: url("/icons/add.svg");
+  width: 50px;
+  height: 50px;
 `;
