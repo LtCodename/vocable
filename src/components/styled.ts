@@ -70,4 +70,5 @@ export const BackIcon = styled(Icon)`
 export const ContentBackground = styled(FlexColumn)`
   background: #e8f6ef;
   padding: 10px;
+  overflow: auto;
 `;
