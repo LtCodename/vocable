@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Word } from "../../redux/interfaces/interfaces";
-import { WordCell, WordsRow } from "./styled";
+import { IconButton } from "../styled";
+import { CheckIcon, WordCell, WordsRow } from "./styled";
 import WordEditModal from "./WordEditModal";
 
 interface Props {
@@ -59,7 +60,20 @@ const WordItem: React.FC<any> = ({ word, save }: Props) => {
 
   const saveNextWord = (nextWord: Word): void => {
     save(nextWord);
+    setShowEditWindow(false);
   };
+
+  const handleCheck = (): void => {
+    const prevoiusWord: Word = { ...word };
+    prevoiusWord.new = false;
+    save(prevoiusWord);
+  };
+
+  const check = (
+    <IconButton onClick={handleCheck}>
+      <CheckIcon />
+    </IconButton>
+  );
 
   return (
     <>
@@ -72,20 +86,25 @@ const WordItem: React.FC<any> = ({ word, save }: Props) => {
         >
           {displayType === "name" ? word.name : word.transcription}
         </WordCell>
-        <WordCell
-          width={"10%"}
-          justifyContent={"flex-start"}
-          alingItems={"center"}
-        >
+        <WordCell width={"10%"} justifyContent={"center"} alingItems={"center"}>
           {processType(word.type)}
         </WordCell>
         <WordCell
-          width={"60%"}
+          width={word.new ? "50%" : "60%"}
           justifyContent={"flex-start"}
           alingItems={"center"}
         >
           {word.translation}
         </WordCell>
+        {word.new ? (
+          <WordCell
+            width={"10%"}
+            justifyContent={"center"}
+            alingItems={"center"}
+          >
+            {word.success === 5 ? check : `${word.success}/5`}
+          </WordCell>
+        ) : null}
       </WordsRow>
       {showEditWindow ? (
         <WordEditModal

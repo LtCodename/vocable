@@ -33,18 +33,23 @@ const WordEditModal: React.FC<any> = ({ word, show, back, save }: Props) => {
   );
   const [transcriptionInputValue, setTranscriptionInputValuee] =
     useState<string>(word ? word.transcription : "");
-  const [successInputValue, setSuccessInputValue] = useState<string>(
-    word ? word.success.toString() : "0"
-  );
 
   const handleBack = (): void => {
     back();
   };
 
   const handleSave = (): void => {
+    if (
+      nameInputValue.length === 0 ||
+      transcriptionInputValue.length === 0 ||
+      translationInputValue.length === 0
+    ) {
+      return;
+    }
+
     const nextWord: Word = {
       id: word ? word.id : Date.now().toString(),
-      success: word ? parseInt(successInputValue) : 0,
+      success: word ? word.success : 0,
       new: word ? (newSelectValue === "y" ? true : false) : true,
       name: nameInputValue,
       transcription: transcriptionInputValue,
@@ -65,9 +70,6 @@ const WordEditModal: React.FC<any> = ({ word, show, back, save }: Props) => {
         return;
       case "translation":
         setTranslationInputValue(e.target.value);
-        return;
-      case "succesful":
-        setSuccessInputValue(e.target.value);
         return;
       default:
         return;
@@ -136,17 +138,6 @@ const WordEditModal: React.FC<any> = ({ word, show, back, save }: Props) => {
             id={"translation"}
           />
         </EditPropItem>
-        {word ? (
-          <EditPropItem>
-            <EditLabel>Succesful Strikes</EditLabel>
-            <EditInput
-              value={successInputValue}
-              placeholder={"Succesful Strikes"}
-              onChange={handleInputChange}
-              id={"succesful"}
-            />
-          </EditPropItem>
-        ) : null}
         {word ? (
           <EditPropItem>
             <EditLabel>New</EditLabel>

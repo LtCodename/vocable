@@ -115,3 +115,9 @@ export const AddIcon = styled(Icon)`
   width: 50px;
   height: 50px;
 `;
+
+export const CheckIcon = styled(Icon)`
+  background-image: url("/icons/check.svg");
+  width: 30px;
+  height: 30px;
+`;
