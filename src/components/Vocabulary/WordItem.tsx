@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Word } from "../../redux/interfaces/interfaces";
 import { WordCell, WordsRow } from "./styled";
 
@@ -8,9 +8,6 @@ interface Props {
 
 const WordItem: React.FC<any> = ({ word }: Props) => {
   const [displayType, setDisplayType] = useState<string>("name");
-  console.log(word);
-
-  useEffect(() => {}, []);
 
   const processType = (type: number): string => {
     switch (type) {

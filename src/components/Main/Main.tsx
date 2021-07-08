@@ -9,6 +9,7 @@ import {
   LogoutIcon,
   UserInfoWrapper,
   VocabularyIcon,
+  MainPageMessage,
 } from "./styled";
 import React, { useState, useEffect } from "react";
 import { User } from "../../redux/interfaces/interfaces";
@@ -69,10 +70,10 @@ const Main: React.FC<any> = ({ history }) => {
           <FakeSpace />
           <FlexColumn>
             <FlexColumn>
-              <span>{`Hello ${currentUser?.username}!`}</span>
-              <span>{`Welcome to Vocable.`}</span>
-              <span>{`With my help you have already learned ${currentUser?.vocabulary.length} words.`}</span>
-              <span>{`Ready to learn some more?`}</span>
+              <MainPageMessage>{`Hello ${currentUser?.username}!`}</MainPageMessage>
+              <MainPageMessage>{`Welcome to Vocable.`}</MainPageMessage>
+              <MainPageMessage>{`With my help you have already learned ${currentUser?.vocabulary.length} words.`}</MainPageMessage>
+              <MainPageMessage>{`Ready to learn some more?`}</MainPageMessage>
             </FlexColumn>
             <FlexRow>
               <IconButton onClick={() => handleLink("/learn")}>

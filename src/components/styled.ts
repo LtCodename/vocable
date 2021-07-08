@@ -69,9 +69,3 @@ export const ContentBackground = styled(FlexColumn)`
   background: #e8f6ef;
   padding: 10px;
 `;
-
-export const Header = styled.span`
-  font-size: 20px;
-  font-weight: bolder;
-  color: #4c4c6d;
-`;

@@ -27,3 +27,7 @@ export const VocabularyIcon = styled(Icon)`
   height: 50px;
   margin-top: 10px;
 `;
+
+export const MainPageMessage = styled.span`
+  text-align: center;
+`;

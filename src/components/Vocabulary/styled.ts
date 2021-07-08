@@ -30,3 +30,28 @@ export const WordCell = styled(FlexRow)<{
     border-right: 3px solid #ffe194;
   }
 `;
+
+export const Tabs = styled(FlexRow)`
+  width: 100%;
+  margin-top: 10px;
+`;
+
+export const Tab = styled(FlexRow)<{
+  active?: boolean;
+}>`
+  width: 100%;
+  border-bottom: 3px solid #4c4c6d;
+  padding-bottom: 5px;
+  background: ${(props) =>
+    props.active ? "rgb(76, 76, 109, 0.2)" : "transparent"};
+
+  :not(:last-child) {
+    margin-right: 10px;
+  }
+`;
+
+export const TabName = styled.span`
+  font-size: 20px;
+  font-weight: bolder;
+  color: #4c4c6d;
+`;
