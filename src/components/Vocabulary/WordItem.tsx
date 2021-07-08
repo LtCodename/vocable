@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Word } from "../../redux/interfaces/interfaces";
 import { WordCell, WordsRow } from "./styled";
+import WordEditModal from "./WordEditModal";
 
 interface Props {
   word: Word;
@@ -9,12 +10,13 @@ interface Props {
 const WordItem: React.FC<any> = ({ word }: Props) => {
   const [displayType, setDisplayType] = useState<string>("name");
   const [clickCounter, setClickCounter] = useState<number>(0);
+  const [showEditWindow, setShowEditWindow] = useState<boolean>(false);
 
   useEffect(() => {
     resetClick();
 
     if (clickCounter === 2) {
-      console.log("I want to edit this word!");
+      setShowEditWindow(true);
       setClickCounter(0);
     }
   }, [clickCounter]);
@@ -50,31 +52,40 @@ const WordItem: React.FC<any> = ({ word }: Props) => {
     }, 300);
   };
 
+  const back = (): void => {
+    setShowEditWindow(false);
+  };
+
   return (
-    <WordsRow onClick={() => handleClick()}>
-      <WordCell
-        width={"30%"}
-        justifyContent={"flex-start"}
-        alingItems={"center"}
-        onClick={handleNameDisplay}
-      >
-        {displayType === "name" ? word.name : word.transcription}
-      </WordCell>
-      <WordCell
-        width={"10%"}
-        justifyContent={"flex-start"}
-        alingItems={"center"}
-      >
-        {processType(word.type)}
-      </WordCell>
-      <WordCell
-        width={"60%"}
-        justifyContent={"flex-start"}
-        alingItems={"center"}
-      >
-        {word.translation}
-      </WordCell>
-    </WordsRow>
+    <>
+      <WordsRow onClick={() => handleClick()}>
+        <WordCell
+          width={"30%"}
+          justifyContent={"flex-start"}
+          alingItems={"center"}
+          onClick={handleNameDisplay}
+        >
+          {displayType === "name" ? word.name : word.transcription}
+        </WordCell>
+        <WordCell
+          width={"10%"}
+          justifyContent={"flex-start"}
+          alingItems={"center"}
+        >
+          {processType(word.type)}
+        </WordCell>
+        <WordCell
+          width={"60%"}
+          justifyContent={"flex-start"}
+          alingItems={"center"}
+        >
+          {word.translation}
+        </WordCell>
+      </WordsRow>
+      {showEditWindow ? (
+        <WordEditModal show={showEditWindow} word={word} back={back} />
+      ) : null}
+    </>
   );
 };
 

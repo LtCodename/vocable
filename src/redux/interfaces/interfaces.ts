@@ -3,7 +3,6 @@ export interface User {
   id: string;
   uid: string;
   lastName: string;
-  newWords: any;
   username: string;
   vocabulary: any;
   data: Function;

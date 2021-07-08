@@ -55,3 +55,17 @@ export const TabName = styled.span`
   font-weight: bolder;
   color: #4c4c6d;
 `;
+
+export const WordEditModalWrapper = styled.div<{ show?: boolean }>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #e8f6ef;
+  padding: 10px;
+  flex-direction: column;
+  display: ${(props) => (props.show ? "flex" : "none")};
+  z-index: 999;
+  align-items: center;
+`;
