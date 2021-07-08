@@ -54,9 +54,11 @@ const Vocabulary: React.FC<any> = ({ history }) => {
     return <WordItem word={word} key={word.id} />;
   });
 
-  const newWords = currentUser?.newWords.map((word: Word) => {
-    return <WordItem word={word} key={word.id} />;
-  });
+  const newWords = currentUser?.vocabulary
+    .filter((word: Word) => word.new)
+    .map((word: Word) => {
+      return <WordItem word={word} key={word.id} />;
+    });
 
   return (
     <ContentBackground height={"100vh"} justifyContent={"flex-start"}>
@@ -65,7 +67,7 @@ const Vocabulary: React.FC<any> = ({ history }) => {
       </IconButton>
       <Tabs>
         <Tab onClick={() => handleTab("new")} active={activeTab === "new"}>
-          <TabName>Yet To Learn</TabName>
+          <TabName>Learning</TabName>
         </Tab>
         <Tab onClick={() => handleTab("all")} active={activeTab === "all"}>
           <TabName>Vocabulary</TabName>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Word } from "../../redux/interfaces/interfaces";
 import { WordCell, WordsRow } from "./styled";
 
@@ -8,6 +8,16 @@ interface Props {
 
 const WordItem: React.FC<any> = ({ word }: Props) => {
   const [displayType, setDisplayType] = useState<string>("name");
+  const [clickCounter, setClickCounter] = useState<number>(0);
+
+  useEffect(() => {
+    resetClick();
+
+    if (clickCounter === 2) {
+      console.log("I want to edit this word!");
+      setClickCounter(0);
+    }
+  }, [clickCounter]);
 
   const processType = (type: number): string => {
     switch (type) {
@@ -28,8 +38,20 @@ const WordItem: React.FC<any> = ({ word }: Props) => {
     setDisplayType(displayType === "name" ? "transcription" : "name");
   };
 
+  const handleClick = (): void => {
+    let clicks: number = clickCounter;
+    clicks = clicks += 1;
+    setClickCounter(clicks);
+  };
+
+  const resetClick = (): void => {
+    setTimeout(() => {
+      setClickCounter(0);
+    }, 300);
+  };
+
   return (
-    <WordsRow>
+    <WordsRow onClick={() => handleClick()}>
       <WordCell
         width={"30%"}
         justifyContent={"flex-start"}
