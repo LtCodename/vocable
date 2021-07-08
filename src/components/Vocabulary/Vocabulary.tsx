@@ -5,7 +5,8 @@ import { AppState } from "../../redux/store";
 import { BackIcon, ContentBackground, Header, IconButton } from "../styled";
 import { useSelector } from "react-redux";
 import { User, Word } from "../../redux/interfaces/interfaces";
-import { WordCell, WordsRow, WordsTable } from "./styled";
+import { WordsTable } from "./styled";
+import WordItem from "./WordItem";
 
 const Vocabulary: React.FC<any> = ({ history }) => {
   const [authorized, setAuthorized] = useState<boolean>(false);
@@ -44,47 +45,8 @@ const Vocabulary: React.FC<any> = ({ history }) => {
     history.push(page);
   };
 
-  const processType = (type: number): string => {
-    switch (type) {
-      case 0:
-        return "v.";
-      case 1:
-        return "n.";
-      case 2:
-        return "adj.";
-      case 3:
-        return "phr.";
-      default:
-        return "n/a";
-    }
-  };
-
   const words = currentUser?.vocabulary.map((word: Word) => {
-    return (
-      <WordsRow>
-        <WordCell
-          width={"30%"}
-          justifyContent={"flex-start"}
-          alingItems={"center"}
-        >
-          {word.name}
-        </WordCell>
-        <WordCell
-          width={"10%"}
-          justifyContent={"flex-start"}
-          alingItems={"center"}
-        >
-          {processType(word.type)}
-        </WordCell>
-        <WordCell
-          width={"60%"}
-          justifyContent={"flex-start"}
-          alingItems={"center"}
-        >
-          {word.translation}
-        </WordCell>
-      </WordsRow>
-    );
+    return <WordItem word={word} key={word.id} />;
   });
 
   return (

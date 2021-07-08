@@ -18,7 +18,7 @@ export interface Word {
   id: string;
   success: number;
   name: string;
-  transctiption: string;
+  transcription: string;
   translation: string;
   type: number;
 }
