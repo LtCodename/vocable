@@ -12,3 +12,13 @@ export interface User {
 export interface AuthData {
   uid: string;
 }
+
+export interface Word {
+  new: boolean;
+  id: string;
+  success: number;
+  name: string;
+  transctiption: string;
+  translation: string;
+  type: number;
+}
