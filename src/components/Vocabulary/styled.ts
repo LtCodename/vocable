@@ -70,6 +70,11 @@ export const WordEditModalWrapper = styled.div<{ show?: boolean }>`
   align-items: center;
 `;
 
+export const WordlEditModalContent = styled(FlexColumn)`
+  width: 100%;
+  max-width: 420px;
+`;
+
 export const EditInput = styled(Input)`
   margin-bottom: 10px;
   width: 100%;

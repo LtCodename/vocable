@@ -9,6 +9,7 @@ import {
   EditPropItem,
   EditSelect,
   SaveIcon,
+  WordlEditModalContent,
 } from "./styled";
 
 interface Props {
@@ -107,63 +108,65 @@ const WordEditModal: React.FC<any> = ({ word, show, back, save }: Props) => {
 
   return (
     <WordEditModalWrapper show={show}>
-      <IconButton onClick={handleBack}>
-        <BackIcon />
-      </IconButton>
-      <EditPropsWrapper>
-        <EditPropItem>
-          <EditLabel>Word</EditLabel>
-          <EditInput
-            value={nameInputValue}
-            placeholder={"Word"}
-            onChange={handleInputChange}
-            id={"name"}
-          />
-        </EditPropItem>
-        <EditPropItem>
-          <EditLabel>Transcription</EditLabel>
-          <EditInput
-            value={transcriptionInputValue}
-            placeholder={"Transcription"}
-            onChange={handleInputChange}
-            id={"transcription"}
-          />
-        </EditPropItem>
-        <EditPropItem>
-          <EditLabel>Translation</EditLabel>
-          <EditInput
-            value={translationInputValue}
-            placeholder={"Translation"}
-            onChange={handleInputChange}
-            id={"translation"}
-          />
-        </EditPropItem>
-        {word ? (
+      <WordlEditModalContent>
+        <IconButton onClick={handleBack}>
+          <BackIcon />
+        </IconButton>
+        <EditPropsWrapper>
           <EditPropItem>
-            <EditLabel>New</EditLabel>
+            <EditLabel>Word</EditLabel>
+            <EditInput
+              value={nameInputValue}
+              placeholder={"Word"}
+              onChange={handleInputChange}
+              id={"name"}
+            />
+          </EditPropItem>
+          <EditPropItem>
+            <EditLabel>Transcription</EditLabel>
+            <EditInput
+              value={transcriptionInputValue}
+              placeholder={"Transcription"}
+              onChange={handleInputChange}
+              id={"transcription"}
+            />
+          </EditPropItem>
+          <EditPropItem>
+            <EditLabel>Translation</EditLabel>
+            <EditInput
+              value={translationInputValue}
+              placeholder={"Translation"}
+              onChange={handleInputChange}
+              id={"translation"}
+            />
+          </EditPropItem>
+          {word ? (
+            <EditPropItem>
+              <EditLabel>New</EditLabel>
+              <EditSelect
+                value={newSelectValue}
+                onChange={handleSelectChange}
+                id={"new"}
+              >
+                {newOptions}
+              </EditSelect>
+            </EditPropItem>
+          ) : null}
+          <EditPropItem>
+            <EditLabel>Type Of Speech</EditLabel>
             <EditSelect
-              value={newSelectValue}
+              value={typeSelectValue}
               onChange={handleSelectChange}
-              id={"new"}
+              id={"type"}
             >
-              {newOptions}
+              {typeOptions}
             </EditSelect>
           </EditPropItem>
-        ) : null}
-        <EditPropItem>
-          <EditLabel>Type Of Speech</EditLabel>
-          <EditSelect
-            value={typeSelectValue}
-            onChange={handleSelectChange}
-            id={"type"}
-          >
-            {typeOptions}
-          </EditSelect>
-        </EditPropItem>
-        <IconButton onClick={handleSave}>
-          <SaveIcon />
-        </IconButton>
-      </EditPropsWrapper>
+          <IconButton onClick={handleSave}>
+            <SaveIcon />
+          </IconButton>
+        </EditPropsWrapper>
+      </WordlEditModalContent>
     </WordEditModalWrapper>
   );
 };
