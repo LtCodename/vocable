@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import { FlexColumn, Icon } from "../styled";
 
-export const UserInfoWrapper = styled(FlexColumn)``;
+export const UserInfoWrapper = styled(FlexColumn)`
+  height: 100%;
+`;
 
 export const LogoutIcon = styled(Icon)`
   background-image: url("/icons/logout.svg");
@@ -31,4 +33,9 @@ export const VocabularyIcon = styled(Icon)`
 export const MainPageMessage = styled.span`
   text-align: center;
   color: #4c4c6d;
+`;
+
+export const RestrictedBackgoundMain = styled(FlexColumn)`
+  max-width: 420px;
+  height: 100%;
 `;

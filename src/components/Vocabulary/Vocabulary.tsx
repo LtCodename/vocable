@@ -12,6 +12,7 @@ import {
   TabName,
   VocabularyHeader,
   AddIcon,
+  RestrictedBackgoundVocabulary,
 } from "./styled";
 import WordItem from "./WordItem";
 import fire from "../../Firebase";
@@ -155,30 +156,32 @@ const Vocabulary: React.FC<any> = ({ history }) => {
 
   return (
     <ContentBackground height={"100vh"} justifyContent={"flex-start"}>
-      <VocabularyHeader>
-        <IconButton onClick={() => handleLink("/main")}>
-          <BackIcon />
-        </IconButton>
-        <IconButton onClick={handleAdd}>
-          <AddIcon />
-        </IconButton>
-      </VocabularyHeader>
-      <Tabs>
-        <Tab onClick={() => handleTab("new")} active={activeTab === "new"}>
-          <TabName>Learning</TabName>
-        </Tab>
-        <Tab onClick={() => handleTab("all")} active={activeTab === "all"}>
-          <TabName>Vocabulary</TabName>
-        </Tab>
-      </Tabs>
-      <WordsTable>{activeTab === "new" ? newWords : allWords}</WordsTable>
-      {showAddWindow ? (
-        <WordEditModal
-          show={showAddWindow}
-          back={back}
-          save={(newWord: Word) => addNewWord(newWord)}
-        />
-      ) : null}
+      <RestrictedBackgoundVocabulary>
+        <VocabularyHeader>
+          <IconButton onClick={() => handleLink("/main")}>
+            <BackIcon />
+          </IconButton>
+          <IconButton onClick={handleAdd}>
+            <AddIcon />
+          </IconButton>
+        </VocabularyHeader>
+        <Tabs>
+          <Tab onClick={() => handleTab("new")} active={activeTab === "new"}>
+            <TabName>Learning</TabName>
+          </Tab>
+          <Tab onClick={() => handleTab("all")} active={activeTab === "all"}>
+            <TabName>Vocabulary</TabName>
+          </Tab>
+        </Tabs>
+        <WordsTable>{activeTab === "new" ? newWords : allWords}</WordsTable>
+        {showAddWindow ? (
+          <WordEditModal
+            show={showAddWindow}
+            back={back}
+            save={(newWord: Word) => addNewWord(newWord)}
+          />
+        ) : null}
+      </RestrictedBackgoundVocabulary>
     </ContentBackground>
   );
 };

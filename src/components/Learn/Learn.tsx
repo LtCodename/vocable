@@ -6,7 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
 import { User, Word } from "../../redux/interfaces/interfaces";
 import LearnItem from "./LearnItem";
-import { Fake, LearnItemWrapper, WordsCounter } from "./styled";
+import {
+  Fake,
+  LearnItemWrapper,
+  WordsCounter,
+  RestrictedBackgoundLearn,
+} from "./styled";
 import fire from "../../Firebase";
 import { getUsers } from "../../redux/effects/Users";
 
@@ -148,11 +153,15 @@ const Learn: React.FC<any> = ({ history }) => {
 
   return (
     <ContentBackground height={"100vh"} justifyContent={"space-between"}>
-      <IconButton onClick={() => handleLink("/main")}>
-        <BackIcon />
-      </IconButton>
-      {wordsAreReady ? <LearnItemWrapper>{learnItem}</LearnItemWrapper> : null}
-      <Fake />
+      <RestrictedBackgoundLearn>
+        <IconButton onClick={() => handleLink("/main")}>
+          <BackIcon />
+        </IconButton>
+        {wordsAreReady ? (
+          <LearnItemWrapper>{learnItem}</LearnItemWrapper>
+        ) : null}
+        <Fake />
+      </RestrictedBackgoundLearn>
     </ContentBackground>
   );
 };

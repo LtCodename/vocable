@@ -10,6 +10,7 @@ import {
   UserInfoWrapper,
   VocabularyIcon,
   MainPageMessage,
+  RestrictedBackgoundMain,
 } from "./styled";
 import React, { useState, useEffect } from "react";
 import { User, Word } from "../../redux/interfaces/interfaces";
@@ -70,34 +71,37 @@ const Main: React.FC<any> = ({ history }) => {
     return filtered.length;
   };
 
-  return (
-    <ContentBackground height={"100vh"}>
-      {authorized && currentUser ? (
-        <UserInfoWrapper justifyContent={"space-between"} height={"100vh"}>
-          <FakeSpace />
+  const content =
+    authorized && currentUser ? (
+      <UserInfoWrapper justifyContent={"space-between"}>
+        <FakeSpace />
+        <FlexColumn>
           <FlexColumn>
-            <FlexColumn>
-              <MainPageMessage>{`Hello ${currentUser?.username}!`}</MainPageMessage>
-              <MainPageMessage>{`Welcome to Vocable.`}</MainPageMessage>
-              <MainPageMessage>{`With my help you have already learned ${calculateDone()} words.`}</MainPageMessage>
-              <MainPageMessage>{`Ready to learn some more?`}</MainPageMessage>
-            </FlexColumn>
-            <FlexRow>
-              <IconButton onClick={() => handleLink("/learn")}>
-                <LearnIcon />
-              </IconButton>
-              <IconButton onClick={() => handleLink("/vocabulary")}>
-                <VocabularyIcon />
-              </IconButton>
-            </FlexRow>
+            <MainPageMessage>{`Hello ${currentUser?.username}!`}</MainPageMessage>
+            <MainPageMessage>{`Welcome to Vocable.`}</MainPageMessage>
+            <MainPageMessage>{`With my help you have already learned ${calculateDone()} words.`}</MainPageMessage>
+            <MainPageMessage>{`Ready to learn some more?`}</MainPageMessage>
           </FlexColumn>
-          <IconButton onClick={handleLogout}>
-            <LogoutIcon />
-          </IconButton>
-        </UserInfoWrapper>
-      ) : (
-        <AuthModule />
-      )}
+          <FlexRow>
+            <IconButton onClick={() => handleLink("/learn")}>
+              <LearnIcon />
+            </IconButton>
+            <IconButton onClick={() => handleLink("/vocabulary")}>
+              <VocabularyIcon />
+            </IconButton>
+          </FlexRow>
+        </FlexColumn>
+        <IconButton onClick={handleLogout}>
+          <LogoutIcon />
+        </IconButton>
+      </UserInfoWrapper>
+    ) : (
+      <AuthModule />
+    );
+
+  return (
+    <ContentBackground height={"100vh"} justifyContent={"center"}>
+      <RestrictedBackgoundMain>{content}</RestrictedBackgoundMain>
     </ContentBackground>
   );
 };

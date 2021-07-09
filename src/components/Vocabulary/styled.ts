@@ -121,3 +121,7 @@ export const CheckIcon = styled(Icon)`
   width: 30px;
   height: 30px;
 `;
+
+export const RestrictedBackgoundVocabulary = styled(FlexColumn)`
+  max-width: 420px;
+`;

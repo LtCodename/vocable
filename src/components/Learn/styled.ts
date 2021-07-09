@@ -58,3 +58,10 @@ export const Fake = styled.span`
 export const LearnItemWrapper = styled(FlexColumn)`
   width: 100%;
 `;
+
+export const RestrictedBackgoundLearn = styled(FlexColumn)`
+  max-width: 420px;
+  width: 100%;
+  height: 100%;
+  justify-content: space-between;
+`;
