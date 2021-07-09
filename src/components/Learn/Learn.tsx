@@ -2,11 +2,13 @@
 import React, { useEffect, useState } from "react";
 import { withRouter } from "react-router-dom";
 import { BackIcon, ContentBackground, IconButton } from "../styled";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
 import { User, Word } from "../../redux/interfaces/interfaces";
 import LearnItem from "./LearnItem";
 import { Fake, LearnItemWrapper, WordsCounter } from "./styled";
+import fire from "../../Firebase";
+import { getUsers } from "../../redux/effects/Users";
 
 const Learn: React.FC<any> = ({ history }) => {
   const [authorized, setAuthorized] = useState<boolean>(false);
@@ -18,6 +20,8 @@ const Learn: React.FC<any> = ({ history }) => {
 
   const authData = useSelector((state: AppState) => state.authData);
   const users = useSelector((state: AppState) => state.users);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (users.users.length) {
@@ -87,7 +91,8 @@ const Learn: React.FC<any> = ({ history }) => {
     history.push(page);
   };
 
-  const handleRight = (): void => {
+  const handleRight = (word: Word): void => {
+    saveWord(word);
     nextWord();
   };
 
@@ -106,11 +111,35 @@ const Learn: React.FC<any> = ({ history }) => {
     }
   };
 
+  const saveWord = (nextWord: Word): void => {
+    const userVocabulary: Word[] = [
+      ...currentUser?.vocabulary.filter(
+        (word: Word) => word.id !== nextWord.id
+      ),
+    ];
+
+    userVocabulary.push(nextWord);
+
+    fire
+      .firestore()
+      .collection("users")
+      .doc(currentUser?.id)
+      .update({
+        vocabulary: userVocabulary,
+      })
+      .then(() => {
+        dispatch(getUsers());
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   const learnItem = (
     <>
       <LearnItem
         word={words[wordIndex]}
-        rigthAnswer={() => handleRight()}
+        rigthAnswer={(word: Word) => handleRight(word)}
         wrongAnswer={() => handleWrong()}
       />
       <WordsCounter>{`${wordIndex + 1}/${words.length}`}</WordsCounter>

@@ -46,8 +46,14 @@ const LearnItem: React.FC<any> = ({
   };
 
   const handleTrue = (): void => {
-    rigthAnswer();
     setDisplayTranslation(false);
+
+    const newWord: Word = {
+      ...word,
+      success: word.success < 5 ? (word.success += 1) : 5,
+    };
+
+    rigthAnswer(newWord);
   };
 
   const handleFalse = (): void => {
