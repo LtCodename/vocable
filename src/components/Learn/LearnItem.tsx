@@ -79,7 +79,7 @@ const LearnItem: React.FC<any> = ({
           alingItems={"center"}
         >
           {displayTranslation ? (
-            <LernItemText>word.translation</LernItemText>
+            <LernItemText>{word.translation}</LernItemText>
           ) : (
             ""
           )}

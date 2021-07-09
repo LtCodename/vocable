@@ -49,6 +49,7 @@ export const WordsCounter = styled.span`
 
 export const LernItemText = styled.span`
   color: #4c4c6d;
+  text-align: center;
 `;
 
 export const Fake = styled.span`
