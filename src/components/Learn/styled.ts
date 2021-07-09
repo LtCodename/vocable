@@ -20,7 +20,9 @@ export const LearnWordCell = styled(FlexColumn)<{
   }
 `;
 
-export const LearnControls = styled(FlexRow)``;
+export const LearnControls = styled(FlexRow)`
+  margin-top: 10px;
+`;
 
 export const ShowIcon = styled(Icon)`
   background-image: url("/icons/show.svg");
@@ -40,4 +42,19 @@ export const CrossIcon = styled(Icon)`
   height: 50px;
 `;
 
-export const WordsCounter = styled.span``;
+export const WordsCounter = styled.span`
+  margin-top: 10px;
+  color: #4c4c6d;
+`;
+
+export const LernItemText = styled.span`
+  color: #4c4c6d;
+`;
+
+export const Fake = styled.span`
+  height: 52px;
+`;
+
+export const LearnItemWrapper = styled(FlexColumn)`
+  width: 100%;
+`;

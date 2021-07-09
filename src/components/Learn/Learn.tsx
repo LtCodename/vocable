@@ -6,7 +6,7 @@ import { useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
 import { User, Word } from "../../redux/interfaces/interfaces";
 import LearnItem from "./LearnItem";
-import { WordsCounter } from "./styled";
+import { Fake, LearnItemWrapper, WordsCounter } from "./styled";
 
 const Learn: React.FC<any> = ({ history }) => {
   const [authorized, setAuthorized] = useState<boolean>(false);
@@ -106,21 +106,24 @@ const Learn: React.FC<any> = ({ history }) => {
     }
   };
 
+  const learnItem = (
+    <>
+      <LearnItem
+        word={words[wordIndex]}
+        rigthAnswer={() => handleRight()}
+        wrongAnswer={() => handleWrong()}
+      />
+      <WordsCounter>{`${wordIndex + 1}/${words.length}`}</WordsCounter>
+    </>
+  );
+
   return (
-    <ContentBackground height={"100vh"} justifyContent={"flex-start"}>
+    <ContentBackground height={"100vh"} justifyContent={"space-between"}>
       <IconButton onClick={() => handleLink("/main")}>
         <BackIcon />
       </IconButton>
-      {wordsAreReady ? (
-        <>
-          <LearnItem
-            word={words[wordIndex]}
-            rigthAnswer={() => handleRight()}
-            wrongAnswer={() => handleWrong()}
-          />
-          <WordsCounter>{`${wordIndex + 1}/${words.length}`}</WordsCounter>
-        </>
-      ) : null}
+      {wordsAreReady ? <LearnItemWrapper>{learnItem}</LearnItemWrapper> : null}
+      <Fake />
     </ContentBackground>
   );
 };

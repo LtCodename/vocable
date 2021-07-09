@@ -8,6 +8,7 @@ import {
   ShowIcon,
   CheckIcon,
   CrossIcon,
+  LernItemText,
 } from "./styled";
 
 interface Props {
@@ -62,16 +63,20 @@ const LearnItem: React.FC<any> = ({
           justifyContent={"center"}
           alingItems={"center"}
         >
-          <span>{word.name}</span>
-          <span>{word.transcription}</span>
-          <span>{processWordType(word.type)}</span>
+          <LernItemText>{word.name}</LernItemText>
+          <LernItemText>{word.transcription}</LernItemText>
+          <LernItemText>{processWordType(word.type)}</LernItemText>
         </LearnWordCell>
         <LearnWordCell
           width={"50%"}
           justifyContent={"center"}
           alingItems={"center"}
         >
-          {displayTranslation ? word.translation : ""}
+          {displayTranslation ? (
+            <LernItemText>word.translation</LernItemText>
+          ) : (
+            ""
+          )}
         </LearnWordCell>
       </LearWordsRow>
       <LearnControls>
