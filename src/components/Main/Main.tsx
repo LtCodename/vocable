@@ -11,6 +11,7 @@ import {
   VocabularyIcon,
   MainPageMessage,
   RestrictedBackgoundMain,
+  InfoIcon,
 } from "./styled";
 import React, { useState, useEffect } from "react";
 import { User, Word } from "../../redux/interfaces/interfaces";
@@ -88,6 +89,9 @@ const Main: React.FC<any> = ({ history }) => {
             </IconButton>
             <IconButton onClick={() => handleLink("/vocabulary")}>
               <VocabularyIcon />
+            </IconButton>
+            <IconButton onClick={() => handleLink("/info")}>
+              <InfoIcon />
             </IconButton>
           </FlexRow>
         </FlexColumn>

@@ -23,6 +23,13 @@ export const LearnIcon = styled(Icon)`
   margin-top: 10px;
 `;
 
+export const InfoIcon = styled(Icon)`
+  background-image: url("/icons/info.svg");
+  width: 50px;
+  height: 50px;
+  margin-top: 10px;
+`;
+
 export const VocabularyIcon = styled(Icon)`
   background-image: url("/icons/vocabulary.svg");
   width: 50px;
