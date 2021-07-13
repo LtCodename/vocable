@@ -3,6 +3,7 @@ import { Fake } from "../Learn/styled";
 import { BackIcon, ContentBackground, FlexColumn, IconButton } from "../styled";
 import { RestrictedBackgoundInfo, InfoText } from "./styled";
 import { withRouter } from "react-router-dom";
+import { VERSION } from "../../App";
 
 const Info: React.FC<any> = ({ history }) => {
   const handleLink = (page: string): void => {
@@ -16,7 +17,7 @@ const Info: React.FC<any> = ({ history }) => {
           <BackIcon />
         </IconButton>
         <FlexColumn>
-          <InfoText>Version: 1.001</InfoText>
+          <InfoText>{`Version: ${VERSION}`}</InfoText>
           <InfoText>
             Hey there! Name's Yevhen, nice to meet you. This here small and
             humble app is not as simple as it looks. It's made with functional
