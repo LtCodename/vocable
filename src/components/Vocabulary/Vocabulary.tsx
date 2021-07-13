@@ -117,10 +117,10 @@ const Vocabulary: React.FC<any> = ({ history }) => {
   };
 
   const sortFunction = (a: Word, b: Word): number => {
-    if (a.name < b.name) {
+    if (a.name.toLowerCase() < b.name.toLowerCase()) {
       return -1;
     }
-    if (a.name > b.name) {
+    if (a.name.toLowerCase() > b.name.toLowerCase()) {
       return 1;
     }
     return 0;

@@ -129,6 +129,7 @@ export const CheckIcon = styled(Icon)`
 
 export const RestrictedBackgoundVocabulary = styled(FlexColumn)`
   max-width: 420px;
+  width: 100%;
 `;
 
 export const SearchInput = styled(Input)`
