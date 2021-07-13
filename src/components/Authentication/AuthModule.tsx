@@ -35,7 +35,7 @@ const AuthModule: React.FC<any> = () => {
   const handleDemo = (): void => {
     fire
       .auth()
-      .signInWithEmailAndPassword("chernenko.eu@gmail.com", "qwerty1")
+      .signInWithEmailAndPassword("demo@gmail.com", "demouser1")
       .then(() => {})
       .catch((error) => {
         console.log(error.message);
