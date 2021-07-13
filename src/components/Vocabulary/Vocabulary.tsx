@@ -13,6 +13,7 @@ import {
   VocabularyHeader,
   AddIcon,
   RestrictedBackgoundVocabulary,
+  SearchInput,
 } from "./styled";
 import WordItem from "./WordItem";
 import fire from "../../Firebase";
@@ -26,6 +27,7 @@ const Vocabulary: React.FC<any> = ({ history }) => {
   const [currentUser, setCurrentUser] = useState<User>();
   const [activeTab, setActiveTab] = useState<string>("new");
   const [showAddWindow, setShowAddWindow] = useState<boolean>(false);
+  const [searchInputValue, setSearchInputValue] = useState<string>("");
 
   const authData = useSelector((state: AppState) => state.authData);
   const users = useSelector((state: AppState) => state.users);
@@ -128,8 +130,17 @@ const Vocabulary: React.FC<any> = ({ history }) => {
     setShowAddWindow(true);
   };
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchInputValue(e.target.value);
+  };
+
+  const searchFilter = (word: Word): boolean => {
+    return word.name.toLowerCase().includes(searchInputValue.toLowerCase());
+  };
+
   const allWords = currentUser?.vocabulary
     .filter((word: Word) => !word.new)
+    .filter(searchFilter)
     .sort(sortFunction)
     .map((word: Word) => {
       return (
@@ -143,6 +154,7 @@ const Vocabulary: React.FC<any> = ({ history }) => {
 
   const newWords = currentUser?.vocabulary
     .filter((word: Word) => word.new)
+    .filter(searchFilter)
     .sort(sortFunction)
     .map((word: Word) => {
       return (
@@ -173,6 +185,11 @@ const Vocabulary: React.FC<any> = ({ history }) => {
             <TabName>Vocabulary</TabName>
           </Tab>
         </Tabs>
+        <SearchInput
+          value={searchInputValue}
+          placeholder={"Search"}
+          onChange={handleInputChange}
+        />
         <WordsTable>{activeTab === "new" ? newWords : allWords}</WordsTable>
         {showAddWindow ? (
           <WordEditModal

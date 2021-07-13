@@ -130,3 +130,9 @@ export const CheckIcon = styled(Icon)`
 export const RestrictedBackgoundVocabulary = styled(FlexColumn)`
   max-width: 420px;
 `;
+
+export const SearchInput = styled(Input)`
+  width: 100%;
+  font-size: 15px;
+  margin-top: 10px;
+`;
