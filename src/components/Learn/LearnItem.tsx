@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Word } from "../../redux/interfaces/interfaces";
 import { IconButton } from "../styled";
 import {
@@ -23,8 +23,6 @@ const LearnItem: React.FC<any> = ({
   wrongAnswer,
 }: Props) => {
   const [displayTranslation, setDisplayTranslation] = useState<boolean>(false);
-
-  useEffect(() => {}, []);
 
   const processWordType = (type: number): string => {
     switch (type) {

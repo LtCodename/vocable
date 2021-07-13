@@ -8,7 +8,7 @@ import Learn from "./components/Learn/Learn";
 import Vocabulary from "./components/Vocabulary/Vocabulary";
 import Info from "./components/Info/Info";
 
-export const VERSION: number = 1.002;
+export const VERSION: number = 1.003;
 
 const App: React.FC<any> = () => {
   const dispatch = useDispatch();

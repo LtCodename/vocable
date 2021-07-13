@@ -54,7 +54,7 @@ const Learn: React.FC<any> = ({ history }) => {
   }, [allUsers, authorized]);
 
   useEffect(() => {
-    if (currentUser) {
+    if (currentUser && wordIndex === 0) {
       reshuffle();
     }
   }, [currentUser]);
