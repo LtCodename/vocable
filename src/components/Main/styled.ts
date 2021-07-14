@@ -46,3 +46,19 @@ export const RestrictedBackgoundMain = styled(FlexColumn)`
   max-width: 420px;
   height: 100%;
 `;
+
+export const VocabuaryIconWrapper = styled.span`
+  position: relative;
+`;
+
+export const ReadyCounter = styled.span`
+  position: absolute;
+  background: #4c4c6d;
+  padding: 1px 6px 2px 6px;
+  border-radius: 9px;
+  color: #ffe194;
+  font-weight: bolder;
+  bottom: -40px;
+  left: 53%;
+  transform: translate(-50%, -50%);
+`;

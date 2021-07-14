@@ -12,6 +12,8 @@ import {
   MainPageMessage,
   RestrictedBackgoundMain,
   InfoIcon,
+  VocabuaryIconWrapper,
+  ReadyCounter,
 } from "./styled";
 import React, { useState, useEffect } from "react";
 import { User, Word } from "../../redux/interfaces/interfaces";
@@ -72,6 +74,13 @@ const Main: React.FC<any> = ({ history }) => {
     return filtered.length;
   };
 
+  const calculateReady = (): number => {
+    const filtered: Word[] = currentUser?.vocabulary
+      .filter((word: Word) => word.new)
+      .filter((word: Word) => word.success === 5);
+    return filtered.length;
+  };
+
   const content =
     authorized && currentUser ? (
       <UserInfoWrapper justifyContent={"space-between"}>
@@ -87,9 +96,14 @@ const Main: React.FC<any> = ({ history }) => {
             <IconButton onClick={() => handleLink("/learn")}>
               <LearnIcon />
             </IconButton>
-            <IconButton onClick={() => handleLink("/vocabulary")}>
-              <VocabularyIcon />
-            </IconButton>
+            <VocabuaryIconWrapper>
+              <IconButton onClick={() => handleLink("/vocabulary")}>
+                <VocabularyIcon />
+              </IconButton>
+              {calculateReady() > 0 ? (
+                <ReadyCounter>{calculateReady()}</ReadyCounter>
+              ) : null}
+            </VocabuaryIconWrapper>
             <IconButton onClick={() => handleLink("/info")}>
               <InfoIcon />
             </IconButton>
