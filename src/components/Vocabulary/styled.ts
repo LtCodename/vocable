@@ -139,3 +139,8 @@ export const SearchInput = styled(Input)`
   font-size: 15px;
   margin-top: 10px;
 `;
+
+export const VocabularyLoading = styled.span`
+  color: #4c4c6d;
+  margin-top: 10px;
+`;

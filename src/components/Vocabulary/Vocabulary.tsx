@@ -14,6 +14,7 @@ import {
   AddIcon,
   RestrictedBackgoundVocabulary,
   SearchInput,
+  VocabularyLoading,
 } from "./styled";
 import WordItem from "./WordItem";
 import fire from "../../Firebase";
@@ -25,7 +26,7 @@ import MessageToast from "../MessageToast/MessageToast";
 const Vocabulary: React.FC<any> = ({ history }) => {
   const [authorized, setAuthorized] = useState<boolean>(false);
   const [allUsers, setAllUsers] = useState<User[]>([]);
-  const [currentUser, setCurrentUser] = useState<User>();
+  const [currentUser, setCurrentUser] = useState<User | undefined>(undefined);
   const [activeTab, setActiveTab] = useState<string>("new");
   const [showAddWindow, setShowAddWindow] = useState<boolean>(false);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
@@ -207,7 +208,12 @@ const Vocabulary: React.FC<any> = ({ history }) => {
           placeholder={"Search"}
           onChange={handleInputChange}
         />
-        <WordsTable>{activeTab === "new" ? newWords : allWords}</WordsTable>
+        {currentUser !== undefined ? (
+          <WordsTable>{activeTab === "new" ? newWords : allWords}</WordsTable>
+        ) : (
+          <VocabularyLoading>Loading...</VocabularyLoading>
+        )}
+
         {showAddWindow ? (
           <WordEditModal
             show={showAddWindow}
