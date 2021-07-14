@@ -62,3 +62,7 @@ export const ReadyCounter = styled.span`
   left: 53%;
   transform: translate(-50%, -50%);
 `;
+
+export const LoadingSign = styled.span`
+  color: #4c4c6d;
+`;

@@ -14,6 +14,7 @@ import {
   InfoIcon,
   VocabuaryIconWrapper,
   ReadyCounter,
+  LoadingSign,
 } from "./styled";
 import React, { useState, useEffect } from "react";
 import { User, Word } from "../../redux/interfaces/interfaces";
@@ -21,18 +22,12 @@ import { ContentBackground, FlexColumn, FlexRow, IconButton } from "../styled";
 import fire from "../../Firebase";
 
 const Main: React.FC<any> = ({ history }) => {
-  const [authorized, setAuthorized] = useState<boolean>(false);
+  const [authorized, setAuthorized] = useState<boolean | undefined>(undefined);
   const [allUsers, setAllUsers] = useState<User[]>([]);
-  const [currentUser, setCurrentUser] = useState<User>();
+  const [currentUser, setCurrentUser] = useState<User | undefined>(undefined);
 
   const authData = useSelector((state: AppState) => state.authData);
   const users = useSelector((state: AppState) => state.users);
-
-  useEffect(() => {
-    if (users.users.length) {
-      setAllUsers(users.users);
-    }
-  }, [users]);
 
   useEffect(() => {
     if (authData.authData) {
@@ -43,6 +38,12 @@ const Main: React.FC<any> = ({ history }) => {
       }
     }
   }, [authData]);
+
+  useEffect(() => {
+    if (users.users.length) {
+      setAllUsers(users.users);
+    }
+  }, [users]);
 
   useEffect(() => {
     if (allUsers.length && authorized) {
@@ -81,41 +82,58 @@ const Main: React.FC<any> = ({ history }) => {
     return filtered.length;
   };
 
-  const content =
-    authorized && currentUser ? (
-      <UserInfoWrapper justifyContent={"space-between"}>
-        <FakeSpace />
-        <FlexColumn>
+  const userContent = (
+    <>
+      {currentUser ? (
+        <UserInfoWrapper justifyContent={"space-between"}>
+          <FakeSpace />
           <FlexColumn>
-            <MainPageMessage>{`Hello ${currentUser?.username}!`}</MainPageMessage>
-            <MainPageMessage>{`Welcome to Vocable.`}</MainPageMessage>
-            <MainPageMessage>{`With my help you have already learned ${calculateDone()} words.`}</MainPageMessage>
-            <MainPageMessage>{`Ready to learn some more?`}</MainPageMessage>
-          </FlexColumn>
-          <FlexRow>
-            <IconButton onClick={() => handleLink("/learn")}>
-              <LearnIcon />
-            </IconButton>
-            <VocabuaryIconWrapper>
-              <IconButton onClick={() => handleLink("/vocabulary")}>
-                <VocabularyIcon />
+            <FlexColumn>
+              <MainPageMessage>{`Hello ${currentUser?.username}!`}</MainPageMessage>
+              <MainPageMessage>{`Welcome to Vocable.`}</MainPageMessage>
+              <MainPageMessage>{`With my help you have already learned ${calculateDone()} words.`}</MainPageMessage>
+              <MainPageMessage>{`Ready to learn some more?`}</MainPageMessage>
+            </FlexColumn>
+            <FlexRow>
+              <IconButton onClick={() => handleLink("/learn")}>
+                <LearnIcon />
               </IconButton>
-              {calculateReady() > 0 ? (
-                <ReadyCounter>{calculateReady()}</ReadyCounter>
-              ) : null}
-            </VocabuaryIconWrapper>
-            <IconButton onClick={() => handleLink("/info")}>
-              <InfoIcon />
-            </IconButton>
-          </FlexRow>
-        </FlexColumn>
-        <IconButton onClick={handleLogout}>
-          <LogoutIcon />
-        </IconButton>
-      </UserInfoWrapper>
-    ) : (
-      <AuthModule />
-    );
+              <VocabuaryIconWrapper>
+                <IconButton onClick={() => handleLink("/vocabulary")}>
+                  <VocabularyIcon />
+                </IconButton>
+                {calculateReady() > 0 ? (
+                  <ReadyCounter>{calculateReady()}</ReadyCounter>
+                ) : null}
+              </VocabuaryIconWrapper>
+              <IconButton onClick={() => handleLink("/info")}>
+                <InfoIcon />
+              </IconButton>
+            </FlexRow>
+          </FlexColumn>
+          <IconButton onClick={handleLogout}>
+            <LogoutIcon />
+          </IconButton>
+        </UserInfoWrapper>
+      ) : (
+        <LoadingSign>Loading...</LoadingSign>
+      )}
+    </>
+  );
+
+  const content = (
+    <>
+      {authorized !== undefined ? (
+        authorized ? (
+          userContent
+        ) : (
+          <AuthModule />
+        )
+      ) : (
+        <LoadingSign>Loading...</LoadingSign>
+      )}
+    </>
+  );
 
   return (
     <ContentBackground height={"100vh"} justifyContent={"center"}>

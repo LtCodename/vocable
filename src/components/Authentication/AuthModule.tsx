@@ -1,29 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import fire from "../../Firebase";
 import { FlexRow, IconButton } from "../styled";
 import { AuthInput, DemoIcon, LoginIcon, AuthColumn } from "./styled";
-import { useSelector } from "react-redux";
-import { AppState } from "../../redux/store";
 import MessageToast from "../MessageToast/MessageToast";
 
 const AuthModule: React.FC<any> = () => {
   const [emailInputValue, setEmailInputValue] = useState<string>("");
   const [passwordInputValue, setPasswordInputValue] = useState<string>("");
-  const [authorized, setAuthorized] = useState<boolean>(false);
   const [messageText, setMessageText] = useState<string>("");
   const [showMessageToast, setShowMessageToast] = useState<boolean>(false);
-
-  const authData = useSelector((state: AppState) => state.authData);
-
-  useEffect(() => {
-    if (authData.authData) {
-      if (authData.authData.uid.length) {
-        setAuthorized(true);
-      } else {
-        setAuthorized(false);
-      }
-    }
-  }, [authData]);
 
   const handleMessage = (message: string): void => {
     setShowMessageToast(true);
@@ -71,23 +56,21 @@ const AuthModule: React.FC<any> = () => {
 
   return (
     <AuthColumn>
-      {authorized ? null : (
-        <>
-          <AuthInput
-            value={emailInputValue}
-            placeholder={"Enter Email"}
-            onChange={handleChange}
-            id={"email"}
-          />
-          <AuthInput
-            value={passwordInputValue}
-            placeholder={"Enter Password"}
-            onChange={handleChange}
-            id={"password"}
-            type={"password"}
-          />
-        </>
-      )}
+      <>
+        <AuthInput
+          value={emailInputValue}
+          placeholder={"Enter Email"}
+          onChange={handleChange}
+          id={"email"}
+        />
+        <AuthInput
+          value={passwordInputValue}
+          placeholder={"Enter Password"}
+          onChange={handleChange}
+          id={"password"}
+          type={"password"}
+        />
+      </>
       <FlexRow>
         <IconButton onClick={handleAuth}>
           <LoginIcon />
