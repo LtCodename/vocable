@@ -1,5 +1,5 @@
 import React from "react";
-import { MessageToastWrapper } from "./styled";
+import { MessageToastWrapper, MessageToastText } from "./styled";
 
 interface Props {
   messageText: string;
@@ -8,7 +8,7 @@ interface Props {
 const MessageToast: React.FC<any> = ({ messageText }: Props) => {
   return (
     <MessageToastWrapper>
-      <span>{messageText}</span>
+      <MessageToastText>{messageText}</MessageToastText>
     </MessageToastWrapper>
   );
 };

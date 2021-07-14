@@ -11,3 +11,7 @@ export const MessageToastWrapper = styled(FlexColumn)`
   font-weight: 600;
   line-height: 16px;
 `;
+
+export const MessageToastText = styled.span`
+  text-align: center;
+`;

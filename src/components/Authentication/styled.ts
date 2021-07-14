@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Icon } from "../styled";
+import { FlexColumn, Icon } from "../styled";
 import { Input } from "../styled";
 
 export const AuthInput = styled(Input)`
@@ -19,10 +19,7 @@ export const DemoIcon = styled(Icon)`
   height: 50px;
 `;
 
-export const AuthErrorText = styled.span`
-  text-align: center;
-  font-size: 14px;
-  max-width: 180px;
-  margin-bottom: 5px;
-  color: #4c4c6d;
+export const AuthColumn = styled(FlexColumn)`
+  position: relative;
+  height: 100%;
 `;

@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import fire from "../../Firebase";
-import { FlexColumn, FlexRow, IconButton } from "../styled";
-import { AuthInput, DemoIcon, LoginIcon, AuthErrorText } from "./styled";
+import { FlexRow, IconButton } from "../styled";
+import { AuthInput, DemoIcon, LoginIcon, AuthColumn } from "./styled";
 import { useSelector } from "react-redux";
 import { AppState } from "../../redux/store";
+import MessageToast from "../MessageToast/MessageToast";
 
 const AuthModule: React.FC<any> = () => {
   const [emailInputValue, setEmailInputValue] = useState<string>("");
   const [passwordInputValue, setPasswordInputValue] = useState<string>("");
   const [authorized, setAuthorized] = useState<boolean>(false);
-  const [error, setError] = useState<boolean>(false);
-  const [errorText, setErrorText] = useState<string>("");
+  const [messageText, setMessageText] = useState<string>("");
+  const [showMessageToast, setShowMessageToast] = useState<boolean>(false);
 
   const authData = useSelector((state: AppState) => state.authData);
 
@@ -24,21 +25,23 @@ const AuthModule: React.FC<any> = () => {
     }
   }, [authData]);
 
-  const clearError = (): void => {
-    setError(false);
-    setErrorText("");
+  const handleMessage = (message: string): void => {
+    setShowMessageToast(true);
+    setMessageText(message);
+
+    setTimeout(() => {
+      setShowMessageToast(false);
+      setMessageText("");
+    }, 3000);
   };
 
   const handleAuth = (): void => {
-    clearError();
-
     fire
       .auth()
       .signInWithEmailAndPassword(emailInputValue, passwordInputValue)
       .then(() => {})
       .catch((error) => {
-        setError(true);
-        setErrorText(error.message);
+        handleMessage(error.message);
         console.log(error.message);
       });
   };
@@ -54,8 +57,6 @@ const AuthModule: React.FC<any> = () => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    clearError();
-
     switch (e.target.id) {
       case "email":
         setEmailInputValue(e.target.value);
@@ -69,7 +70,7 @@ const AuthModule: React.FC<any> = () => {
   };
 
   return (
-    <FlexColumn>
+    <AuthColumn>
       {authorized ? null : (
         <>
           <AuthInput
@@ -87,7 +88,6 @@ const AuthModule: React.FC<any> = () => {
           />
         </>
       )}
-      {error ? <AuthErrorText>{errorText}</AuthErrorText> : null}
       <FlexRow>
         <IconButton onClick={handleAuth}>
           <LoginIcon />
@@ -96,7 +96,8 @@ const AuthModule: React.FC<any> = () => {
           <DemoIcon />
         </IconButton>
       </FlexRow>
-    </FlexColumn>
+      {showMessageToast ? <MessageToast messageText={messageText} /> : null}
+    </AuthColumn>
   );
 };
 
