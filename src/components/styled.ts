@@ -54,6 +54,7 @@ export const IconButton = styled.button`
   border: none;
   background: transparent;
   display: flex;
+  cursor: pointer;
 `;
 
 export const Icon = styled.span`

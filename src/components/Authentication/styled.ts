@@ -18,3 +18,11 @@ export const DemoIcon = styled(Icon)`
   width: 50px;
   height: 50px;
 `;
+
+export const AuthErrorText = styled.span`
+  text-align: center;
+  font-size: 14px;
+  max-width: 180px;
+  margin-bottom: 5px;
+  color: #4c4c6d;
+`;
