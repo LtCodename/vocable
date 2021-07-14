@@ -20,6 +20,7 @@ import fire from "../../Firebase";
 import { useDispatch } from "react-redux";
 import { getUsers } from "../../redux/effects/Users";
 import WordEditModal from "./WordEditModal";
+import MessageToast from "../MessageToast/MessageToast";
 
 const Vocabulary: React.FC<any> = ({ history }) => {
   const [authorized, setAuthorized] = useState<boolean>(false);
@@ -28,6 +29,8 @@ const Vocabulary: React.FC<any> = ({ history }) => {
   const [activeTab, setActiveTab] = useState<string>("new");
   const [showAddWindow, setShowAddWindow] = useState<boolean>(false);
   const [searchInputValue, setSearchInputValue] = useState<string>("");
+  const [messageText, setMessageText] = useState<string>("");
+  const [showMessageToast, setShowMessageToast] = useState<boolean>(false);
 
   const authData = useSelector((state: AppState) => state.authData);
   const users = useSelector((state: AppState) => state.users);
@@ -84,9 +87,11 @@ const Vocabulary: React.FC<any> = ({ history }) => {
         vocabulary: userVocabulary,
       })
       .then(() => {
+        handleMessage("Done!");
         dispatch(getUsers());
       })
       .catch((error) => {
+        handleMessage(error.message);
         console.log(error.message);
       });
   };
@@ -105,15 +110,27 @@ const Vocabulary: React.FC<any> = ({ history }) => {
       })
       .then(() => {
         dispatch(getUsers());
+        handleMessage("Done!");
         setShowAddWindow(false);
       })
       .catch((error) => {
+        handleMessage(error.message);
         console.log(error.message);
       });
   };
 
   const back = (): void => {
     setShowAddWindow(false);
+  };
+
+  const handleMessage = (message: string): void => {
+    setShowMessageToast(true);
+    setMessageText(message);
+
+    setTimeout(() => {
+      setShowMessageToast(false);
+      setMessageText("");
+    }, 3000);
   };
 
   const sortFunction = (a: Word, b: Word): number => {
@@ -198,6 +215,7 @@ const Vocabulary: React.FC<any> = ({ history }) => {
             save={(newWord: Word) => addNewWord(newWord)}
           />
         ) : null}
+        {showMessageToast ? <MessageToast messageText={messageText} /> : null}
       </RestrictedBackgoundVocabulary>
     </ContentBackground>
   );

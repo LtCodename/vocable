@@ -25,6 +25,7 @@ export const WordCell = styled(FlexRow)<{
   height: 100%;
   padding: 5px;
   display: flex;
+  color: #4c4c6d;
 
   :not(:last-child) {
     border-right: 3px solid #ffe194;
@@ -130,6 +131,7 @@ export const CheckIcon = styled(Icon)`
 export const RestrictedBackgoundVocabulary = styled(FlexColumn)`
   max-width: 420px;
   width: 100%;
+  position: relative;
 `;
 
 export const SearchInput = styled(Input)`
